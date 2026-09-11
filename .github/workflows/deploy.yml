@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.pages.outcome }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,15 +36,37 @@ jobs:
           GITHUB_PAGES: 'true'
       # Pages runs the artifact through Jekyll otherwise, which drops the _next directory.
       - run: touch out/.nojekyll
-      - uses: actions/configure-pages@v5
+
+      # Publish to the gh-pages branch too, so the preview also works when the repository serves
+      # Pages from a branch rather than from Actions. Harmless if the Actions path is the one in use.
+      - name: Publish to gh-pages branch
+        continue-on-error: true
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Enabling Pages from the API needs write-scoped workflow permissions; if it is refused the
+      # build still succeeds and the gh-pages branch above remains available.
+      - id: pages
+        uses: actions/configure-pages@v5
+        continue-on-error: true
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
+        if: steps.pages.outcome == 'success'
         with:
           path: out
 
   deploy:
     needs: build
+    if: needs.build.outputs.configured == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
