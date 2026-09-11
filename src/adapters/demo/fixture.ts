@@ -109,3 +109,39 @@ export const PINNED_AFTER = ['Funding rates BTC · 3 venues'];
 export const RECENT_AFTER = ['Upstream funders of 8f3K…2Ac9', 'JUP volume vs 7-day median', 'WIF holder cohort flows · Sep', 'USDC supply on Solana · Aug'];
 export const CONTINUE = { title: 'JUP volume vs 7-day median', meta: 'Run 2 completed · 10 Sep 2026, 21:14 UTC · Saved' };
 export const BALANCE = '48.20 credits · demo unit';
+
+// Transaction hashes for the Activity table (WAL-01.R04). Display-only demo identifiers.
+export const ACTIVITY_TX = ['4hQe…m2Kf', '9Lrt…Xa71', 'Bv3n…Pq0c', 'Zk8w…Ld4e', 'Ts1y…Hn9r', 'Mc6a…Wu2j', 'Gp4d…Yz8s', 'Rq9e…Bk3t', 'Nx2m…Cv7o', 'Ek5b…Ja1u', 'Wf7c…Qd6h', 'Hj3s…Tr5p'];
+
+// WAL-01 coverage line (R02). Each clause names its source; prices have none in this fixture.
+export const WALLET_COVERAGE = { transfers: 'Transfers complete [1]', labels: 'Labels 1 of 10 [3]', prices: 'Prices: no source' };
+export const WALLET_ACTIVITY_TOTAL = 34;
+
+// MKT-01 observation detail (R04). Values come from the approved frame, not invented at runtime.
+export const EVENT_DETAIL: Record<string, {
+  id: string; kind: string; headline: string; entity: { label: string; symbol: string; contract: string };
+  rows: [string, string][]; coverage: string; series: { d: string; v: string; w: string }[]; seriesNote: string;
+}> = {
+  'ev-01': {
+    id: 'ev-01', kind: 'Token · volume · ev-01',
+    headline: 'DEX volume 24h at 3.4× the 7-day daily median',
+    entity: { label: 'JUP · Solana', symbol: 'JUP', contract: 'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN' },
+    rows: [
+      ['Observed value', '41.8M USDC-eq · 24 h volume (venue-reported)'],
+      ['Baseline', '12.3M USDC-eq · 7-day daily median, 4–10 Sep UTC'],
+      ['Ratio', '3.4× (41.8 / 12.3)'],
+      ['Window', '10 Sep 05:00 → 11 Sep 05:00 UTC'],
+      ['Source', 'Demo DEX aggregate · snapshot 11 Sep 05:04 UTC'],
+    ],
+    coverage: '3 of 4 tracked venues; venue D not reporting',
+    series: [
+      { d: '06 Sep', v: '11.9M', w: '28%' }, { d: '07 Sep', v: '9.8M', w: '23%' },
+      { d: '08 Sep', v: '12.3M', w: '29%' }, { d: '09 Sep', v: '14.1M', w: '34%' },
+      { d: '10→11 Sep', v: '41.8M', w: '100%' },
+    ],
+    seriesNote: 'Venue-reported volume; not a buy/sell classification and not a recommendation.',
+  },
+};
+export const MARKET_ASOF = 'Data as-of 11 Sep 2026, 06:45 UTC · 6 sources';
+export const MARKET_NEW_EVENTS = '3 new observations since 06:45 UTC';
+export const MARKET_TOTAL = 41;

@@ -32,6 +32,21 @@ const GROUPS: { title: string; note: string; links: { label: string; href: strin
     ],
   },
   {
+    title: 'WAL-01 · Wallet Detail',
+    note: 'LT-03 Entity Detail. Activity is dominant; Investigate carries wallet + chain + window into a draft.',
+    links: [
+      { label: 'Populated wallet', href: '/wallet/solana/' + F.WALLET.full, note: 'FR-005 · filter Activity, then press Investigate' },
+      { label: 'Counterparty wallet (outside fixture)', href: '/wallet/solana/' + F.FUNDERS[0].full, note: 'address not in the demo index' },
+    ],
+  },
+  {
+    title: 'MKT-01 · Market Intelligence',
+    note: 'Discovery → Investigation. A vertical observation feed, not a ticker.',
+    links: [
+      { label: 'Feed + selected observation', href: '/market', note: 'FR-010 · Inspect and Investigate are separate actions' },
+    ],
+  },
+  {
     title: 'Shell & overlays',
     note: 'Search is an overlay (OVR-01), not a route — open it with ⌘/Ctrl+K or the sidebar item.',
     links: [
@@ -44,9 +59,7 @@ const GROUPS: { title: string; note: string; links: { label: string; href: strin
     links: [
       { label: 'Research Library (RES-03)', href: '/research' },
       { label: 'Template Catalog (RES-04)', href: '/research/templates' },
-      { label: 'Wallet Detail (WAL-01)', href: '/wallet/solana/' + F.WALLET.full },
       { label: 'Entity Detail (ENT-01)', href: '/entity/token/jup' },
-      { label: 'Market Intelligence (MKT-01)', href: '/market' },
       { label: 'Saved (SAV-01)', href: '/saved' },
       { label: 'Chart Detail (DAT-01)', href: '/chart/art_0142' },
       { label: 'Account (ACC-01)', href: '/settings/account' },
