@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fchart\u002F[chartId]","\u002Fentity\u002F[entityType]\u002F[entityId]","\u002Fresearch\u002F[researchId]","\u002Fwallet\u002F[chainId]\u002F[address]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
