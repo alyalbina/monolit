@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import type { Route } from 'next';
+// The gallery deliberately uses plain anchors rather than next/link: each entry must load its screen
+// from scratch so a demo state is inspected in isolation, and so the page keeps working when the
+// build is served as a static export from a plain file host.
 import * as F from '@/adapters/demo/fixture';
 
 /** Development-only screen gallery: every implemented route and demo state in one place, for
@@ -70,10 +71,10 @@ export default function DevScreens() {
       <p style={{ margin: '0 0 4px', font: '400 13px/20px var(--am-font-ui)', color: 'var(--am-text-tertiary)' }}>{g.note}</p>
       <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid var(--am-border-subtle)', borderRadius: 8, background: 'var(--am-bg-surface)' }}>
         {g.links.map((l, i) => <li key={l.href + l.label} style={{ borderTop: i ? '1px solid var(--am-border-subtle)' : 'none' }}>
-          <Link href={l.href as Route} className="am-row" style={{ display: 'flex', alignItems: 'center', gap: 16, minHeight: 48, padding: '10px 16px', textDecoration: 'none', color: 'inherit', flexWrap: 'wrap' }}>
+          <a href={l.href} className="am-row" style={{ display: 'flex', alignItems: 'center', gap: 16, minHeight: 48, padding: '10px 16px', textDecoration: 'none', color: 'inherit', flexWrap: 'wrap' }}>
             <span style={{ flex: '1 1 240px', font: '700 14px/20px var(--am-font-ui)' }}>{l.label}</span>
             {l.note && <span style={{ flex: '1 1 220px', font: '400 12px/18px var(--am-font-ui)', color: 'var(--am-text-tertiary)' }}>{l.note}</span>}
-          </Link>
+          </a>
         </li>)}
       </ul>
     </section>)}
