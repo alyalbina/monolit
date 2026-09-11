@@ -1,0 +1,34 @@
+/* Ask.Monolit DS v1.0.0 semantic tokens — PROVISIONAL (MI-01): reconstructed from Specification; replace with official themes.css 1:1. */
+/* Ask.Monolit DS v1.0.0 — semantic token bindings reconstructed from Specification §03/§07/§11.
+   MISSING INPUT: tokens/light.tokens.json, dark.tokens.json, themes.css were not attached; values below are the exact
+   semantic values printed in the specification tables. Naming follows DS CSS convention --am-<path>. */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --am-bg-canvas:#F6F7FA; --am-bg-surface:#FFFFFF; --am-bg-raised:#FFFFFF; --am-bg-hover:#ECEFF5; --am-bg-active:#D7DDE8; --am-bg-overlay:#FFFFFF; --am-bg-inverse:#101218;
+  --am-text-primary:#101218; --am-text-secondary:#3C485D; --am-text-tertiary:#536075; --am-text-disabled:#8995AA; --am-text-link:#4535B5; --am-text-on-primary:#FFFFFF;
+  --am-border-subtle:#D7DDE8; --am-border-default:#667287; --am-border-strong:#536075; --am-border-focus:#5546D9; --am-border-selected:#5546D9;
+  --am-int-primary:#5546D9; --am-int-primary-hover:#4535B5; --am-int-primary-active:#392C8C; --am-int-secondary:#FFFFFF; --am-int-secondary-hover:#ECEFF5; --am-int-selected:#EAE5FF; --am-int-selected-hover:#C9C2FF; --am-int-selected-text:#392C8C; --am-int-disabled:#ECEFF5; --am-int-destructive:#A9233B;
+  --am-success-text:#166449; --am-success-surface:#EFFBF5; --am-success-border:#187E57;
+  --am-warning-text:#9A4819; --am-warning-surface:#FFF6EE; --am-warning-border:#B9571D;
+  --am-error-text:#A9233B; --am-error-surface:#FFF1F3; --am-error-border:#CD3652;
+  --am-info-text:#204A98; --am-info-surface:#EFF6FF; --am-info-border:#245CC0;
+  --am-market-positive:#166449; --am-market-negative:#A9233B; --am-market-neutral:#536075;
+  --am-chart-canvas:#FFFFFF; --am-chart-grid:#D7DDE8; --am-chart-axis:#667287; --am-chart-label:#536075; --am-chart-s1:#5546D9; --am-chart-s2:#245CC0; --am-chart-s3:#9A4819; --am-chart-s4:#536075;
+  --am-scrim:rgba(16,18,24,0.40);
+  --am-e1:0 2px 8px -2px rgba(16,18,24,0.06); --am-e2:0 8px 24px -4px rgba(16,18,24,0.12); --am-e3:0 16px 48px -8px rgba(16,18,24,0.18);
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --am-bg-canvas:#101218; --am-bg-surface:#181C25; --am-bg-raised:#273244; --am-bg-hover:#273244; --am-bg-active:#3C485D; --am-bg-overlay:#273244; --am-bg-inverse:#F6F7FA;
+  --am-text-primary:#F6F7FA; --am-text-secondary:#D7DDE8; --am-text-tertiary:#B6C0D1; --am-text-disabled:#667287; --am-text-link:#C9C2FF; --am-text-on-primary:#101218;
+  --am-border-subtle:#273244; --am-border-default:#8995AA; --am-border-strong:#B6C0D1; --am-border-focus:#A99AFF; --am-border-selected:#A99AFF;
+  --am-int-primary:#A99AFF; --am-int-primary-hover:#C9C2FF; --am-int-primary-active:#8D7CF1; --am-int-secondary:#181C25; --am-int-secondary-hover:#273244; --am-int-selected:#2D256B; --am-int-selected-hover:#392C8C; --am-int-selected-text:#EAE5FF; --am-int-disabled:#273244; --am-int-destructive:#FFA5B0;
+  --am-success-text:#77D8AC; --am-success-surface:#082A20; --am-success-border:#44BF88;
+  --am-warning-text:#F4AE78; --am-warning-surface:#34180C; --am-warning-border:#E98C47;
+  --am-error-text:#FFA5B0; --am-error-surface:#350916; --am-error-border:#F5798D;
+  --am-info-text:#8CBBFA; --am-info-surface:#101F3B; --am-info-border:#6198EC;
+  --am-market-positive:#77D8AC; --am-market-negative:#FFA5B0; --am-market-neutral:#B6C0D1;
+  --am-chart-canvas:#181C25; --am-chart-grid:#3C485D; --am-chart-axis:#8995AA; --am-chart-label:#B6C0D1; --am-chart-s1:#A99AFF; --am-chart-s2:#8CBBFA; --am-chart-s3:#F4AE78; --am-chart-s4:#B6C0D1;
+  --am-scrim:rgba(0,0,0,0.64);
+  --am-e1:0 2px 8px -2px rgba(0,0,0,0.24); --am-e2:0 8px 24px -4px rgba(0,0,0,0.36); --am-e3:0 16px 48px -8px rgba(0,0,0,0.48);
+}

@@ -1,0 +1,86 @@
+@import './tokens.css';
+@import './fonts.css';
+:root{--am-font-ui:'Noto Sans',Arial,sans-serif;--am-font-mono:'Source Code Pro',ui-monospace,monospace;--am-row-h:40px;--am-cell-pad:8px 12px}
+[data-density="comfortable"]{--am-row-h:56px;--am-cell-pad:16px 16px}[data-density="dense"]{--am-row-h:32px;--am-cell-pad:4px 12px}
+/* The rail/expanded sidebar width is a pure viewport question, so CSS owns it. JS still decides
+   which sidebar *content* to show, but the width is correct on the very first paint — otherwise a
+   narrow viewport renders a 232 px sidebar for one frame and overflows the page. */
+:root{--am-sidebar-w:232px}
+@media (max-width:1279px){:root{--am-sidebar-w:64px}}
+/* Motion tokens (Motion spec §4 / §25.1). Durations and easings are fixed by the DS: do not invent
+   new ones without a TOKEN CHANGE REQUIRED. instant = 0 ms because labels, data values and accessible
+   names must never wait for an animation (§25.4). */
+:root{
+  --motion-instant:0ms;
+  --motion-fast:120ms;
+  --motion-standard:180ms;
+  --motion-panel:240ms;
+  --motion-spinner:800ms;
+  --ease-standard:cubic-bezier(.2, 0, 0, 1);
+  --ease-panel-enter:cubic-bezier(0, 0, .2, 1);
+  --ease-panel-exit:cubic-bezier(.4, 0, 1, 1);
+}
+html,body{margin:0;background:var(--am-bg-canvas);color:var(--am-text-primary);font:400 16px/26px var(--am-font-ui)}
+/* Real wallet/token identifiers are long unbroken tokens. They must wrap rather than push the page
+   into a horizontal scroll, and they are never truncated away (SA §16). */
+body{overflow-wrap:break-word}
+.am-mono{overflow-wrap:anywhere}
+a{color:var(--am-text-link)}a:hover{color:var(--am-int-primary-active)}
+*:focus-visible{outline:2px solid var(--am-border-focus);outline-offset:2px}
+.am-mono{font:400 13px/20px var(--am-font-mono)}.am-num{font-variant-numeric:tabular-nums lining-nums}
+.am-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* A skip link is only useful if it can be reached: reveal it on focus (DS accessibility contract). */
+a.am-sr:focus-visible{position:fixed;top:8px;left:8px;z-index:100;width:auto;height:auto;clip:auto;overflow:visible;
+  padding:8px 12px;min-height:44px;display:inline-flex;align-items:center;border-radius:8px;
+  background:var(--am-bg-overlay);color:var(--am-text-primary);border:1px solid var(--am-border-focus);box-shadow:var(--am-e2)}
+/* Interactive targets: DS requires >=32 px with a fine pointer and >=44 px on touch. Inline controls
+   (citations, chip removes) keep their visual size and gain a transparent, layout-neutral hit area. */
+.am-hit{position:relative}
+.am-hit::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:100%;height:100%;min-width:32px;min-height:32px}
+@media (pointer:coarse){.am-hit::after{min-width:44px;min-height:44px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* Spinner: 800 ms linear, shown only while something is genuinely pending (Motion spec). Reduced
+   motion keeps a static ring — the status text, not the spin, carries the meaning. */
+@keyframes am-spin{to{transform:rotate(360deg)}}
+.am-spin{animation:am-spin var(--motion-spinner) linear infinite}
+@media (prefers-reduced-motion:reduce){.am-spin{animation:none}}
+
+/* DS control sizes are tuned for a fine pointer; on touch every button still has to clear 44 px. */
+@media (pointer:coarse){.am-btn{min-height:44px}}
+
+/* Forced colors drops author backgrounds, which would flatten the selected navigation item and the
+   selected evidence row into their neighbours. Re-assert those with system colour keywords. */
+@media (forced-colors: active){
+  [aria-current="page"]{forced-color-adjust:none;background:Highlight;color:HighlightText}
+  [aria-selected="true"]{forced-color-adjust:none;background:Highlight;color:HighlightText}
+}
+
+/* Interaction feedback (§6.2). Hover/pressed are `fast`; selection is `standard`. Nothing here moves
+   layout — transitions are limited to colour and border properties so rows never shift or jump. */
+.am-row{transition:background-color var(--motion-fast) var(--ease-standard)}
+.am-row:hover{background:var(--am-bg-hover)}
+.am-row[aria-selected="true"]{background:var(--am-int-selected);transition-duration:var(--motion-standard)}
+.am-btn,.am-cite{transition:background-color var(--motion-fast) var(--ease-standard),
+  border-color var(--motion-fast) var(--ease-standard),color var(--motion-fast) var(--ease-standard)}
+.am-btn:hover:not([aria-disabled="true"]):not(:disabled){background:var(--am-int-secondary-hover)}
+/* §15.1 — hovering or focusing a citation highlights the evidence affordance itself. */
+.am-cite:hover,.am-cite:focus-visible{background:var(--am-int-selected);color:var(--am-int-selected-text)}
+/* §9.3 / §10.4 — panels and overlays enter and exit on the panel token from their own spatial origin. */
+.am-panel-enter{animation:am-panel-in var(--motion-panel) var(--ease-panel-enter)}
+@keyframes am-panel-in{from{transform:translateX(8px);opacity:0}to{transform:none;opacity:1}}
+.am-overlay-enter{animation:am-overlay-in var(--motion-standard) var(--ease-standard)}
+@keyframes am-overlay-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+/* §14.2 — result blocks appear with a standard surface reveal, never a dramatic slide. */
+.am-block-enter{animation:am-block-in var(--motion-standard) var(--ease-standard)}
+@keyframes am-block-in{from{opacity:0}to{opacity:1}}
+/* §16.1 — the analytical table header stays sticky beneath the route header. */
+.am-table thead th{position:sticky;top:0;z-index:1;background:var(--am-bg-surface)}
